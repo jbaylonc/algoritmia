@@ -1,0 +1,52 @@
+/*5.Ingresar N números enteros positivos a un arreglo A y 
+    N números enteros positivos a un arreglo B. 
+    Luego en un arreglo C, almacenar el producto de A[i]* B[i] 
+    calcular por sumas sucesivas. Al final reportar A, B y C*/
+package semana11_1040am;
+import java.io.*;
+public class Ejercicio05 
+{   static BufferedReader br = new BufferedReader(new InputStreamReader(System.in)); 
+    public static void main(String[] args) throws IOException
+    {   //se declara un arreglo de enteros
+        int A[] = new int[100];
+        int B[] = new int[100]; 
+        int C[] = new int[100];
+        int N, i, N1, N2, producto, c;
+        /*********** Ingreso de N *************/
+        do {    System.out.print("Ingrese No. de datos:");
+                N=Integer.parseInt(br.readLine());
+            }
+        while(N<=0 || N>100);
+        /* ingresar los datos en el arreglo A*/
+        for (i=0;i<N;i++)
+        {   do {
+            System.out.println("ingresa edad A ["+i+"] ");
+            A[i] = Integer.parseInt(br.readLine());}
+            while (A[i]<=0 || A[i]>150);
+        }        
+        /* ingresar los datos en el arreglo B*/
+        for (i=0;i<N;i++)
+        {   do {
+            System.out.println("ingresa edad B ["+i+"] ");
+            B[i] = Integer.parseInt(br.readLine());}
+            while (B[i]<=0 || B[i]>150);
+        }        
+        /* calcular C que es el producto de A y B, pero por sumas sucesivas*/
+        for (i=0;i<N;i++)
+        {   producto = 0;
+            N1 = A[i];
+            N2 = B[i];
+            for (c=1;c<=N1;c++)
+            { producto = producto + N2;}
+            C[i] = producto;
+            /*for (c=1;c<=A[i];c++)
+            { producto = producto + B[i];}
+            C[i] = producto;*/
+        }
+        /* reportar la información de todos los arreglos*/
+        for (i=0;i<N;i++)
+        {   System.out.println("A["+i+"]= "+A[i]+ 
+                "  B["+i+"]= "+B[i]+ " C["+i+"]= "+C[i]);
+        }
+    }
+}
