@@ -1,0 +1,38 @@
+package semana11vie07am;
+import java.io.*;
+public class Ejercicio01 
+{   static BufferedReader br = new BufferedReader(new InputStreamReader (System.in));
+    public static void main(String[] args) throws IOException 
+    {   String nombres[] = new String[100];
+        int edad []=new int[100];
+        int i, N;         /***** ingresar el N ****/
+        do
+        { System.out.println("Ingresa el valor de N que sea mayor a 0");
+        N = Integer.parseInt(br.readLine()); }
+        while (N<=0);    /**** Ingresar los valor en los arreglos ******/
+        for (i=0;i<N;i++)
+        {   System.out.println("Ingresa el nombre: "); //ingresar los nombres
+            nombres[i] = br.readLine().toUpperCase();
+            do {
+            System.out.println("Ingresa la edad: "); //ingresar la edad
+            edad[i] = Integer.parseInt(br.readLine());}
+            while ( edad[i]<=0 || edad[i]>150);         }
+        System.out.println("REPORTE DE TODOS LOS DATOS INGRESADOS");
+        /******* comprobaremos reportando todos los datos *****/
+        for (i=0;i<N;i++)
+        {   System.out.println("El nombre del estudiante: "+nombres[i]+" tiene la edad de "+edad[i]);
+        }
+        System.out.println("REPORTE DE LOS MAYORES DE EDAD");
+        /***reportar solo los mayores de edad****/
+        for (i=0;i<N;i++)
+        {   if (edad[i]>=18)
+                {System.out.println("El nombre del estudiante: "+nombres[i]+" tiene la edad de "+edad[i]);}
+        }
+        System.out.println("REPORTE DE LOS MENORES DE EDAD");        
+        /***reportar solo los menores de edad****/
+        for (i=0;i<N;i++)
+        {   if (edad[i]<18)
+                {System.out.println("El nombre del estudiante: "+nombres[i]+" tiene la edad de "+edad[i]);}
+        }   
+    }
+}
