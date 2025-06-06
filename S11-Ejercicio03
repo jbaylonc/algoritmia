@@ -1,0 +1,63 @@
+/*3.-Ingresar nombre, nota y sexo de N alumnos y:
+*a.-Reportar todos los datos
+*b.-Reportar los datos de las alumnas mujeres
+*c.-Reportar los datos de los alumnos hombres
+*d.-Ingresar un nombre de un alumno y reportar sus datos*/
+package semana11vie07am;
+import java.io.*;
+public class Ejercicio03 
+{   static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    public static void main(String []args) throws IOException
+    {   String nom[] = new String[100];
+        int nota[] = new int[100]; //se declara un arreglo de enteros
+        char sex[] = new char[100];
+        int N, i;
+        String nombre;
+        /*********** Ingreso de N *************/
+        do {    System.out.print("Ingrese No. de datos:");
+                N=Integer.parseInt(br.readLine());
+            }
+        while(N<=0 || N>100);
+        /*Ingreso de datos *******/
+        System.out.println("\nIngreso de datos ");
+        for(i=0; i<N; i++)
+        {   System.out.print("nom[" + i+ "] : "); 
+            nom[i]= br.readLine().toUpperCase();  
+            do
+            {   System.out.print("nota[" + i+ "] : "); 
+                nota[i]= Integer.parseInt(br.readLine());
+            } 
+            while(nota[i]<0 || nota[i]>20);
+            do
+            {   System.out.print("sexo[" + i+ "] : ");
+                sex[i]= br.readLine().toUpperCase().charAt(0);
+            }
+            while(sex[i]!='M'&& sex[i]!='F');
+        }
+        /*Reporte de todos los datos *********/
+        System.out.println("\nReporte de todos los datos:");
+        for(i=0; i<N; i++)
+        {   System.out.println(nom[i]+"\t"+nota[i]+"\t"+sex[i]);
+        }
+        /*********b.-Reportar los datos de las alumnas mujeres**************/ 
+        System.out.println("\nReporte de los datos de alumnas mujeres");
+        for(i=0; i<N; i++)
+        { if(sex[i]=='F')
+            {System.out.println(nom[i]+"\t"+nota[i]+"\t"+sex[i]);}
+        }
+
+        /*********c.-Reportar los datos de los alumnos hombres**************/ 
+        System.out.println("\nReporte de los datos de alumnos hombres"); 
+        for(i=0; i<N; i++)
+            { if(sex[i]=='M')
+                {System.out.println(nom[i]+"\t"+nota[i]+"\t"+sex[i]);}
+            }
+        /*********d.-Ingresar un nombre de un alumno y reportar sus datos***/ 
+        System.out.println("\nIngrese nombre a buscar"); 
+        nombre = br.readLine().toUpperCase();
+        for(i=0; i<N; i++)
+            { if(nom[i].compareTo(nombre)==0)
+                {System.out.println(nom[i]+"\t"+nota[i]+"\t"+sex[i]);}
+            }
+    }
+}
