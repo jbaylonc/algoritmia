@@ -1,0 +1,91 @@
+package semana12mar1040;
+import java.io.*;
+public class Ejercicio01 
+{   static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    public static void main(String[] args) throws IOException
+    {//defino los arreglos que voy a emplear para mi problema
+        String nombres[] = new String[100];
+        int notas[] = new int [100];
+        int N, i;
+        double prom;
+        N = LeerNdatos();
+        Ingresardatos(nombres, notas, N);
+        Reportartodo(nombres, notas, N);
+        Reportaraprobados(nombres, notas, N);
+        Reportardesaprobados(nombres, notas, N);
+        prom = Calcularpromedio(notas,N);
+        Reportarmenoresalpromedio(nombres, notas, N, prom);
+    }
+    static int LeerNdatos() throws IOException
+    {   int N;
+        do
+        {
+            System.out.println("Dame el valor de la cantidad de datos a ingresar [N]");
+            N = Integer.parseInt(br.readLine());
+        }
+        while (N<=0);
+        return N;
+    }
+    static void Ingresardatos(String nombres[], int notas[], int N) throws IOException
+    {   int i;
+        for (i=0;i<N;i++)
+            {   System.out.println("Ingresame el nombr del estudiante ["+i+"]");
+                nombres[i]= br.readLine().toUpperCase();
+                do
+                {
+                System.out.println("Ingresame la nota ["+i+"]");
+                notas[i]= Integer.parseInt(br.readLine());
+                }
+                while( notas[i]<0 || notas[i]>20);
+            }
+        return;
+    }
+    static void Reportartodo(String nombres[], int notas[], int N)
+    {   int i;
+        System.out.println("Reporte de todos los estudiantes y su nota");
+        System.out.println("==========================================");
+        for (i=0; i<N;i++)
+            {   System.out.println("Nombre ["+i+"] "+ nombres[i]+ " Nota: "+notas[i]);    
+            }
+        return;    
+    }
+    static void Reportaraprobados(String nombres[], int notas[], int N)
+    {   int i;
+        System.out.println("Reporte de todos los alumnos aprobados");
+        System.out.println("======================================");
+        for (i=0; i<N;i++)
+            {   if (notas[i]>=11)
+                    {System.out.println("Nombre ["+i+"] "+ nombres[i]+ " Nota: "+notas[i]);    }
+            }
+        return;    
+    }
+    static void Reportardesaprobados(String nombres[], int notas[], int N)
+    {   int i;
+        System.out.println("Reporte de todos los alumnos desaprobados");
+        System.out.println("======================================");
+        for (i=0; i<N;i++)
+            {   if (notas[i]<=10)
+                    {System.out.println("Nombre ["+i+"] "+ nombres[i]+ " Nota: "+notas[i]);    }
+            }
+        return;    
+    }
+    static double Calcularpromedio(int notas[], int N)
+    {   int i, sumadenotas=0;
+        double promedio;
+        for (i=0;i<N;i++)
+            { sumadenotas = sumadenotas +notas[i];
+            }
+        promedio = (sumadenotas / N)*1.0;
+        return promedio;        
+    }
+    static void Reportarmenoresalpromedio(String nombres[], int notas[], int N, double prom)
+    {   int i;
+        System.out.println("Reporte de todos los alumnos menores al promedio");
+        System.out.println("================================================");
+        for (i=0; i<N;i++)
+            {   if (notas[i]<=prom)
+                    {System.out.println("Nombre ["+i+"] "+ nombres[i]+ " Nota: "+notas[i]);    }
+            }
+        return;
+    }
+}
