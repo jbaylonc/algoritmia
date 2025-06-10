@@ -1,0 +1,123 @@
+/*Ejercicio02.-Para un supermercado, Ingresar nombre, cantidad, precio y 
+tipo │('P'= Perecible o 'N'-No perecible) de N productos y reportar: 
+a) Todos los datos
+b) Los datos de los productos perecibles. Indicar la suma de sus precios.
+c) Los datos de los productos No perecibles. Indicar la suma de sus cantidades
+d) Los datos de los productos con precio >100. Indicar cuantos son perecible 
+y cuantos son No perecibles
+El programa se debe repetir mientras se desee continuar */
+package semana12mar1040;
+import java.io.*;
+public class Ejercicio02 
+{   static BufferedReader br=new BufferedReader(new InputStreamReader(System.in)); 
+    public static void main(String[] args) throws IOException
+    {   String nom[]= new String[100];
+        int cant[]=new int[100];
+        char tip[]=new char[100]; 
+        double pre[]=new double[100];
+        int N;
+        char res;
+        do {
+            N=LeerN();
+            Ingresar (nom,cant,tip,pre,N); 
+            ReportarTodo (nom,cant,tip,pre,N); 
+            Perecibles (nom,cant,tip,pre,N); 
+            NoPerecibles (nom,cant,tip,pre,N);
+            PrecioMayorACien (nom,cant,tip,pre,N);
+            res=Continuar ();
+        }
+        while(res=='S');
+    }
+    static int LeerN() throws IOException
+    {   int N;
+        do  {
+            System.out.print("Ingrese N° de datos N = ");
+            N = Integer.parseInt(br.readLine());
+        }
+        while(N<=0 || N>100);
+        return N;
+    }
+    static void Ingresar (String nom[ ],int cant[ ],char tip[],double pre[], int N)throws IOException 
+    {   int i;
+        System.out.println("\nIngreso de los datos");
+        for(i=0;i<N; i=i+1)
+        {   System.out.print("Ingrese nombre["+i+"] = "); 
+            nom[i]=br.readLine().toUpperCase();
+            do  
+            {   System.out.print("Ingrese cantidad["+i+"] = ");
+                cant[i]=Integer.parseInt(br.readLine());
+            }
+            while(cant[i]<=0);
+            do
+            {   System.out.print("Ingrese Tipo["+i+"] = ");
+                tip[i]=br.readLine().toUpperCase().charAt(0);
+            }
+            while(tip[i]!='P'&&tip[i]!='N');
+            do
+            {   System.out.print("Ingrese Precio["+i+"] = ");
+                pre[i]=Double.parseDouble(br.readLine());
+            }
+            while(pre[i]<=0);
+        }
+        return;
+    }    
+
+    static void ReportarTodo (String nom[ ],int cant[],char tip[],double pre[], int N)throws IOException
+    {   int i;
+        System.out.println("\nReporte de Todos los datos");
+        for(i=0;i<N; i=i+1)
+        { System.out.println(nom[i]+"\t"+cant[i]+"\t"+tip[i]+"\t"+pre[i]);
+        }
+    }
+    static void Perecibles (String nom[ ],int cant[],char tip[],double pre[], int N) throws IOException
+    {   int i;
+        double sp=0;
+        System.out.println("\nReporte de datos de los Productos Perecibles");
+        for(i=0;i<N; i=i+1)
+        {   if(tip[i]=='P')
+            {   System.out.println(nom[i]+"\t"+cant[i]+"\t"+tip[i]+"\t"+pre[i]);
+                sp=sp+pre[i];
+            }
+        }
+        System.out.println("La suma de sus precios es "+sp);
+        return;
+    }
+    static void NoPerecibles (String nom[ ],int cant[ ],char tip[ ],double pre[], int N)throws IOException 
+    {   int i,sc=0;
+        System.out.println("\nReporte de datos de los Productos No Perecibles");
+        for(i=0;i<N; i=i+1)
+        {   if(tip[i]=='N')
+            {   System.out.println(nom[i]+"\t"+cant[i]+"\t"+tip[i]+"\t"+pre[i]);
+             sc=sc+cant[i];
+            }
+           
+        }
+        System.out.println("Suma de sus cantidades = "+sc);
+        return;
+    }
+
+    static void PrecioMayorACien (String nom[ ],int cant[ ],char tip[ ],double pre[], int N)throws IOException
+    {   int i,cp=0,cn=0;
+        System.out.println("\nReporte de Productos con precio> 100"); 
+        for(i=0;i<N; i=i+1)
+        {   if(pre[i]>100)
+            { System.out.println(nom[i]+"\t"+cant[i]+"\t"+tip[i]+"\t"+pre[i]);
+            if(tip[i]=='P')
+            { cp = cp+1;}
+            else
+            {cn=cn+1;}
+            }
+        }
+        System.out.println("Cantidad de Productos perecibles = "+cp); 
+        System.out.println("Cantidad de Productos NO perecibles = "+cn);
+    }
+    static char Continuar () throws IOException
+    {   char resp;
+        do
+        {   System.out.println("\nDesea continuar S/N ?: ");
+            resp=br.readLine().toUpperCase().charAt(0);
+        }
+        while(resp!='S' && resp!='N');
+        return resp;
+    }
+}
