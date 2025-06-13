@@ -1,0 +1,117 @@
+package semana12vie1040;
+import java.io.*;
+public class Ejercicio01 
+{   static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    public static void main(String[] args) throws IOException
+    {   String nombres[] = new String[100];
+        int notas[] = new int[100];
+        int N=0, opc;
+        double promedio=01;
+        do
+        {   opc=menu();
+            switch(opc)
+            {   case 1: N = LeerN();
+                        break;
+                case 2: Ingresardatos(nombres, notas, N);
+                        break;
+                case 3: Reportartodo(nombres, notas, N);
+                        break;
+                case 4: Reportaraprobados(nombres, notas,N);
+                        break;
+                case 5: Reportardesaprobados(nombres, notas,N);
+                        break;
+                case 6: promedio = Calculapromedio(notas, N);
+                        break;
+                case 7: Mayorespromedio(nombres, notas,N, promedio);
+                        break;
+                case 8: System.out.println("Gracias...");
+                        break;
+             }
+        }    
+        while (opc!=8);
+    }
+    static int LeerN() throws IOException
+    {   int N;
+        do
+        {   System.out.println("Ingresa el valor de N");
+            N = Integer.parseInt(br.readLine());
+        }
+        while (N<=0 || N>100);
+        return N;
+    }
+    static void Ingresardatos(String nombres[], int notas[], int N) throws IOException
+    {   int i;
+        for(i=0;i<N;i++)
+        {   System.out.println("Ingresa nombre alumno ["+i+"] ");
+            nombres[i] = br.readLine().toUpperCase();
+            do
+            {   System.out.println("Ingresa nota ["+i+"] ");
+                notas[i] = Integer.parseInt(br.readLine());
+            }
+            while (notas[i]<=0 || notas[i]> 20 );
+        }
+    }
+    static void Reportartodo(String nombres[], int notas[], int N)
+    {   int i;
+        System.out.println("REPORTE DE TODOS LOS ALUMNOS Y SU NOTA");
+        System.out.println("=======================================");
+        for (i=0;i<N;i++)
+        {   System.out.println("Nombre: "+nombres[i]+"\t Nota: "+notas[i]);
+        }
+    }
+    static void Reportaraprobados(String nombres[], int notas[], int N)
+    {   int i;
+        System.out.println("REPORTE DE LOS ALUMNOS APROBADOS");
+        System.out.println("================================");
+        for (i=0;i<N;i++)
+        {   if (notas[i]>=11)
+            {System.out.println("Nombre: "+nombres[i]+"\t Nota: "+notas[i]);}
+        }        
+    }
+    static void Reportardesaprobados(String nombres[], int notas[], int N)
+    {   int i;
+        System.out.println("REPORTE DE LOS ALUMNOS DESAPROBADOS");
+        System.out.println("===================================");
+        for (i=0;i<N;i++)
+        {   if (notas[i]<11)
+            {System.out.println("Nombre: "+nombres[i]+"\t Nota: "+notas[i]);}
+        }        
+    }
+    static double Calculapromedio(int notas[], int N)
+    {   int i, sumadenotas=0;
+        double promedio; 
+        for(i=0;i<N;i++)
+        {   sumadenotas = sumadenotas + notas[i];
+        }
+        promedio = (sumadenotas / N);
+        return promedio;
+    }
+    static void Mayorespromedio(String nombres[], int notas[], int N, double promedio)
+    {   int i;
+        System.out.println("REPORTE DE LOS ALUMNOS mayores al promedio");
+        System.out.println("===================================");    
+        for (i=0;i<N; i++)
+        {   if (notas[i]>promedio)
+            {System.out.println("Nombre: "+nombres[i]+"\t Nota: "+notas[i]);}
+        }
+    }
+    static int menu()throws IOException
+    {   int opc;
+        do
+        {   System.out.println("MENU DE OPCIONES");
+            System.out.println("================");
+            System.out.println("1. Leer N");
+            System.out.println("2. Ingresar los datos");    
+            System.out.println("3. Reportar todos los datos");    
+            System.out.println("4. Reportar todos los datos aprobados");   
+            System.out.println("5. Reportar todos los datos desaprobados");
+            System.out.println("6. Calcular el promedio");    
+            System.out.println("7. Reportar todos los datos mayores al promedio");
+            System.out.println("8. Terminar");
+            opc = Integer.parseInt(br.readLine());
+        }
+        while (opc<1 || opc > 8);
+        return opc;
+    }
+    
+}
