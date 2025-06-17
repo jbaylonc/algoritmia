@@ -1,0 +1,173 @@
+package semana13mar1040;
+import java.io.*;
+public class Ejercicio01 
+{   static BufferedReader br = new BufferedReader(new InputStreamReader (System.in));
+    public static void main(String[] args) throws IOException
+    {   String nombre[] = new String[100];
+        int edad[] = new int[100];
+        int N=0, opc;
+        do
+        {   opc = Menu();
+            switch (opc)
+            {
+                case 1: N = LeerN();
+                        break;
+                case 2: Ingresardatos(nombre, edad, N);
+                        break;
+                case 3: Reportar(nombre, edad, N);
+                        break;
+                case 4: Consultarpornombre(nombre, edad, N);
+                        break;
+                case 5: Modificardatos(nombre, edad, N);
+                        break;
+                case 6: N = Eliminardatos(nombre, edad, N);
+                        break;
+                case 7: Ordenaralfabeticamente(nombre, edad, N);
+                        break;
+                case 8: Terminar();
+                        break;
+            }
+        } while (opc!= 8);
+    }
+        
+    static int LeerN() throws IOException
+    {   int N;
+        do 
+        {
+        System.out.println("Ingresa el valor N");
+        N = Integer.parseInt(br.readLine());
+        } while ( N<=0 || N>100);
+        return N;
+    }
+    static void Ingresardatos(String nombre[], int edad[], int N) throws IOException
+    {   int i;
+        for (i=0;i<N; i++)
+        {   System.out.println("Ingresa el nombre ["+i+"] :");
+            nombre[i] = br.readLine().toUpperCase();
+            do
+            {
+            System.out.println("Ingresa la edad ["+i+"] :");
+            edad[i] = Integer.parseInt(br.readLine());
+            }
+            while (edad[i] < 0 || edad[i]> 120);
+        }
+    }
+    static void Reportar(String nombre[], int edad[], int N)
+    {   int i;
+        System.out.println("REPORTE DE LOS DATOS INGRESADOS");
+        System.out.println("===============================");
+        for (i=0;i<N;i++)
+        {   System.out.println("Nombre ["+i+"] : "+nombre[i]+ ", edad ["+i+"] : "+edad[i]);
+        }
+        System.out.println("===============================");
+    }
+    static void Terminar() throws IOException
+    {   //char resp;
+        //do
+        //{
+        System.out.println("Fin del programa -Gameover");
+        //resp = br.readLine().toUpperCase().charAt(0);
+        //}
+        //while (resp =='S' && resp=='N');
+        //return resp;
+    }
+    static int Menu() throws IOException
+    {   int opc;
+        do {
+        System.out.println("MENU DE OPCIONES");
+        System.out.println("================");
+        System.out.println("1. Leer N");
+        System.out.println("2. Ingresar datos");
+        System.out.println("3. Reportar datos");
+        System.out.println("4. Consultar por nombre");
+        System.out.println("5. Modificar datos");
+        System.out.println("6. Eliminar datos");
+        System.out.println("7. Agregar datos");
+        System.out.println("8. Ordenar alfabeticamente");
+        System.out.println("9. Terminar");
+        System.out.println("================");
+        System.out.println("Ingresa una opción del menu");
+        opc = Integer.parseInt(br.readLine());
+        }
+        while (opc< 1 || opc>9);
+        return opc;
+    }
+    static void Consultarpornombre(String nombre[], int edad[], int N) throws IOException
+    {   String nom;
+        int i, pos=-1;
+        System.out.println("Ingrese el nombre a consultar");
+        nom = br.readLine().toUpperCase();
+        for(i=0; i<N; i++)
+        {   if (nombre[i].compareTo(nom)==0)
+            {   pos = i;
+            }
+        }
+        if (pos==-1)
+        {System.out.println("Dato buscado, no fue encontrado...");}
+        else
+        {System.out.println("Nombre "+nombre[pos]+" edad "+edad[pos]);}            
+    }
+    static void Modificardatos(String nombre[], int edad[], int N) throws IOException
+    {   String nom;
+        int i, pos=-1;
+        System.out.println("Ingrese el nombre a modificar");
+        nom = br.readLine().toUpperCase();
+        for(i=0; i<N; i++)
+        {   if (nombre[i].compareTo(nom)==0)
+            {   pos = i;
+                break;
+            }
+        }
+        if (pos==-1)
+        {System.out.println("Dato a modificar, no fue encontrado...");}
+        else
+        {   System.out.println("Ingresa el nuevo nombre ");
+            nombre[pos] = br.readLine().toUpperCase();
+            do
+            {
+            System.out.println("Ingresa la nueva edad");
+            edad[pos] = Integer.parseInt(br.readLine());
+            } while (edad[pos] <=0 || edad[pos] > 120 );
+        }  
+    }
+    static int Eliminardatos(String nombre[], int edad[], int N) throws IOException
+    {   String nom;
+        int i, pos=-1;
+        System.out.println("Ingrese el nombre a eliminar");
+        nom = br.readLine().toUpperCase();
+        for(i=0; i<N; i++)
+        {   if (nombre[i].compareTo(nom)==0)
+            {   pos = i;
+                break;
+            }
+        }
+        if (pos==-1)
+        {System.out.println("Dato a eliminar, no fue encontrado...");}
+        else
+        {   System.out.println("Dato encontrado");
+            nombre[pos] = nombre[N-1];
+            edad[pos] = edad[N-1];
+            N = N-1;
+            System.out.println("Dato ha sido eliminado con éxito");
+        }
+        return N;
+    }
+    static void Ordenaralfabeticamente(String nombre[], int edad[], int N)
+    {   int i, j;
+        String nomaux="";
+        int edadaux;
+        for (i=0; i<N; i++)
+        {   for(j=i+1;j<N;j++)
+            {if (nombre[i].compareTo(nombre[j])>0)
+            {       nomaux = nombre[i];
+                    nombre[i] = nombre[j];
+                    nombre[j] = nomaux;
+                    edadaux = edad[i];
+                    edad[i] = edad[j];
+                    edad[j] = edadaux;
+            }  
+            }
+        }
+    }
+
+}
