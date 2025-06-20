@@ -1,0 +1,163 @@
+package semana13vie1040;
+import java.io.*;
+public class Semana13Vie1040 {
+    static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    public static void main(String[] args) throws IOException
+    {   String nom []= new String [100];
+        int edad[] = new int[100];
+        int N=0, opcion;
+        do
+        {   opcion= menu();
+            switch (opcion)
+            { case 1:   N = Ingresar(nom, edad, N);
+                        break;
+              case 2:   System.out.println("aqui estamos");
+                        Reportar(nom, edad, N);
+                        break;
+              case 3:   Consultar(nom, edad, N);
+                        break;     
+              case 4:   Modificar(nom, edad, N);
+                        break;     
+              case 5:   N = Eliminar(nom, edad, N);
+                        break;    
+              case 6:   N = Agregar(nom, edad, N);
+                        break;   
+              case 7:   Ordenar(nom, edad, N);
+                        break;   
+              case 8:   System.out.println("Se acabó... gracias");
+                        break;          
+            }
+        }
+        while (opcion!=8);
+        
+    }
+    static int menu() throws IOException
+    {   int opcion;
+        do
+        {
+        System.out.println("MENU DE OPCIONES");
+        System.out.println("================");
+        System.out.println("1. Ingresar datos");
+        System.out.println("2. Reportar");
+        System.out.println("3. Consultar");
+        System.out.println("4. Modificar");
+        System.out.println("5. Eliminar");
+        System.out.println("6. Agregar");
+        System.out.println("7. Ordenar");
+        System.out.println("8. Terminar");
+        System.out.println("\nIngresa la opcion del menu");
+        opcion = Integer.parseInt(br.readLine());
+        }
+        while (opcion<=0 || opcion>8);
+        return opcion;
+    }
+    static int Ingresar(String nom[], int edad[], int N) throws IOException
+    {   int i;
+        do {
+        System.out.println("Ingresa el valor de N");
+        N = Integer.parseInt(br.readLine());
+        } while (N<=0 || N> 100);
+        for (i=0;i<N;i++)
+        {   System.out.println("Nombre ["+i+"]");
+            nom[i] = br.readLine().toUpperCase();
+            do {
+            System.out.println("Edad ["+i+"]");
+            edad[i] = Integer.parseInt(br.readLine());
+            } while (edad[i]<0 || edad[i]> 150);
+        }
+        return N;
+    }
+    static void Reportar (String nom[], int edad[], int N) 
+    {   int i=0;
+        for (i=0;i<N;i++)
+        {   System.out.println("Nombre" +nom[i]+ " edad "+edad[i]);
+        }
+    }
+    static void Consultar (String nom[], int edad[], int N) throws IOException
+    {   int i=0, pos = -1;
+        String nomaux;
+        System.out.println("Ingresa el nombre a consultar");
+        nomaux = br.readLine().toUpperCase();
+        for (i=0;i<N;i++)
+        {   if (nom[i].equalsIgnoreCase(nomaux))
+            {   pos = i;
+            }           
+        }
+        if (pos==-1)
+        {System.out.println("No hay datos del nombre consultado");}
+        else
+        {       System.out.println("Nombre" +nom[i]+ " edad "+edad[i]);}
+    }
+    static void Modificar (String nom[], int edad[], int N) throws IOException
+    {   int i=0, pos = -1;
+        String nomaux;
+        System.out.println("Ingresa el nombre a modificar");
+        nomaux = br.readLine().toUpperCase();
+        for (i=0;i<N;i++)
+        {   if (nom[i].equalsIgnoreCase(nomaux))
+            {   pos = i;
+            }           
+        }
+        if (pos==-1)
+        {System.out.println("No hay datos del nombre a modificar");}
+        else
+        {     System.out.println("Nombre ");
+            nom[pos] = br.readLine().toUpperCase();
+            do {
+            System.out.println("Edad ");
+            edad[pos] = Integer.parseInt(br.readLine());
+            } while (edad[pos]<0 || edad[pos]> 150);   
+            
+        }
+    }
+    static int Eliminar (String nom[], int edad[], int N) throws IOException
+    {   int i=0, pos = -1;
+        String nomaux;
+        System.out.println("Ingresa el nombre a eliminar");
+        nomaux = br.readLine().toUpperCase();
+        for (i=0;i<N;i++)
+        {   if (nom[i].equalsIgnoreCase(nomaux))
+            {   pos = i;
+            }           
+        }
+        if (pos==-1)
+        {System.out.println("No hay datos del nombre a eliminar");}
+        else
+        {       nom[pos] = nom [N-1];
+                edad[pos]= edad [N-1];
+                N = N-1;}
+        return N;
+    }
+    static int Agregar (String nom[], int edad[], int N) throws IOException
+    {   int i=0;
+        if (N<100)
+        {
+            System.out.println("Nombre ");
+            nom[N] = br.readLine().toUpperCase();
+            do {
+            System.out.println("Edad ");
+            edad[N] = Integer.parseInt(br.readLine());
+            } while (edad[N]<0 || edad[N]> 150);
+            N = N+1;
+        }
+        else
+        {System.out.println("Arreglos completos, no se puede agregar mas...");}
+        return N;
+    }
+    static void Ordenar (String nom[], int edad[], int N)
+    {   String nomaux;
+        int i, j, edadaux;
+        for (i=0;i<N;i++)
+        {   for (j=i+1;j<N;j++)
+            {   if (nom[i].compareTo(nom[j])>0)
+                    {   nomaux = nom[i];
+                        nom[i] = nom[j];
+                        nom[j] = nomaux;
+                        edadaux = edad[i];
+                        edad[i] = edad[j];
+                        edad[j] = edadaux;
+                    }
+            }
+        }
+    }
+}
