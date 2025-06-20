@@ -1,0 +1,160 @@
+package semana13vie7am;
+import java.io.*;
+public class Semana13Vie7am {
+    static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    public static void main(String[] args) throws IOException
+    {   String nombres[] = new String[100];
+        int edad[] = new int[100];
+        char sexo[] = new char[100];
+        int N=0;
+        char opc;
+        do
+        {
+        opc = Menu();
+        switch(opc)
+            {
+            case 'a': N = LeerN();
+                    break;
+            case 'b': Ingresardatos(nombres, edad, sexo, N);
+                    break;
+            case 'c': Reportartodosdatos(nombres, edad, sexo, N);
+                    break;
+            case 'd': Consultardatos(nombres, edad, sexo, N);
+                    break;                    
+            case 'e': Modificardatos(nombres, edad, sexo, N);
+                break;               
+            case 'f': Eliminardatos(nombres, edad, sexo, N);
+                break;
+            case 'g': System.out.println("Programa terminado... Hasta la vista");
+                break;
+            }
+        }
+        while (opc!='g');
+        
+    }
+    static char Menu() throws IOException
+    {   char opc;
+        do 
+        {
+        System.out.println("MENU DE OPCIONES");
+        System.out.println("================");
+        System.out.print("a. LEER N\t\t");
+        System.out.println("b. INGRESAR DATOS");
+        System.out.print("c. REPORTAR TODOS\t");
+        System.out.println("d. CONSULTAR");
+        System.out.print("e. MODIFICAR\t\t");
+        System.out.println("f. ELIMINAR");
+        System.out.println("g. TERMINAR");
+        System.out.println("=================");
+        System.out.println("Ingresa una opción del menú");
+        opc = br.readLine().toLowerCase().charAt(0);
+        }
+        while (opc<'a'|| opc>'g');
+        return opc;
+    }
+    static int LeerN() throws IOException
+    {   int N;
+        do 
+        {
+            System.out.println("Ingresa el valor de N");
+            N = Integer.parseInt(br.readLine());
+        }
+        while (N<=0 || N>100);
+        return N;
+    }
+    static void Ingresardatos(String nombres[], int edad[], char sexo[], int N) throws IOException
+    {   int i;
+        for(i=0; i< N; i++)
+        {   System.out.println("Ingresa el nombre ["+i+"]");
+            nombres[i] = br.readLine().toUpperCase();
+            do
+            {
+            System.out.println("Ingresa edad ["+i+"]");
+            edad[i] = Integer.parseInt(br.readLine());
+            } while (edad[i]<0 || edad[i]>150);
+            do
+            {
+            System.out.println("Ingresa sexo["+i+"] M:Masculino - F:Femenino");
+            sexo[i] = br.readLine().toUpperCase().charAt(0);
+            } while (sexo[i]=='M' && sexo[i]=='F');
+        }
+    }
+    static void Reportartodosdatos(String nombres[], int edad[], char sexo[], int N) 
+    {   int i;
+        System.out.println("******************************");
+        System.out.println("* Reporte de todos los datos *");
+        System.out.println("******************************");
+        for(i=0; i< N; i++)
+        {   System.out.println(nombres[i]+"\t "+edad[i]+"\t"+sexo[i]);
+        }
+        System.out.println("******************************");
+    }
+    static void Consultardatos(String nombres[], int edad[], char sexo[], int N) throws IOException
+    {   int i;
+        String nombre;
+        System.out.println("Ingresa el nombre del alumno a consultar:");
+        nombre = br.readLine().toUpperCase();
+        for(i=0; i< N; i++)
+        {   if (nombres[i].compareTo(nombre)==0)
+            {   System.out.println(nombres[i]+"\t "+edad[i]+"\t"+sexo[i]);
+                break;
+            }
+            else
+            { System.out.println("Datos consultado no existe");
+            break;}
+        
+            }
+        } 
+     static void Modificardatos(String nombres[], int edad[], char sexo[], int N) throws IOException
+    {   int i;
+        String nombre;
+        System.out.println("Ingresa el nombre del alumno a consultar:");
+        nombre = br.readLine().toUpperCase();
+        for(i=0; i< N; i++)
+        {   if (nombres[i].compareTo(nombre)==0)
+            {   System.out.println("Datos a modificar"+nombres[i]+"\t "+edad[i]+"\t"+sexo[i]);
+                System.out.println("Ingresa el nuevo nombre ");
+                nombres[i] = br.readLine().toUpperCase();
+                do
+                {
+                System.out.println("Ingresa edad ");
+                edad[i] = Integer.parseInt(br.readLine());
+                } while (edad[i]<0 || edad[i]>150);
+                do
+                {
+                System.out.println("Ingresa sexo");
+                sexo[i] = br.readLine().toUpperCase().charAt(0);
+                } while (sexo[i]=='M' && sexo[i]=='F');                
+                break;
+            }
+            else
+            { System.out.println("Datos consultado no existe");
+            break;}
+        
+            }
+    } 
+     static int Eliminardatos(String nombres[], int edad[], char sexo[], int N) throws IOException
+    {   int i, pos=-1;
+        String nomaux;
+        System.out.println("Ingresa el nombre del alumno a eliminar:");
+        nomaux = br.readLine().toUpperCase();
+        for(i=0; i< N; i++)
+        {   if (nombres[i].compareTo(nomaux)==0)
+            {   pos = i; 
+                i = N;
+            }
+            if (pos==-1)
+            {   System.out.println("Dato a eliminar no encontrado");}
+            else
+            {   nombres[pos] = nombres[N-1];
+                edad[pos] = edad[N-1];
+                sexo[pos] = sexo[N-1];
+                N = N-1;
+            }
+        }
+        return N;
+    } 
+     //static void Terminar()
+     //{ System.out.println("Se terminó");
+     //}
+}
