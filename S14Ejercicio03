@@ -1,0 +1,148 @@
+package semana14vie07am;
+import java.io.*;
+public class Ejercicio03 {
+    static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    public static void main(String[] args) throws IOException
+    {
+        char Sexo[] = new char[100];
+        String Nombre[] = new String[100];
+        int Edad[] = new int[100];
+        int N=0, opc=0;    
+        do
+        {   opc = Menu();
+            switch (opc)
+            {   case 1: N = LeerNalumnos();
+                        break;
+                case 2: Ingresardatos(Nombre, Edad, Sexo, N);
+                        break;
+                case 3: Reportardatos(Nombre, Edad, Sexo, N);
+                        break;
+                case 4: Consultar(Nombre, Edad, Sexo, N);
+                        break;
+                case 5: //Modificar();
+                        break;
+                case 6: //Eliminar();
+                        break;
+                case 7: N = Agregar(Nombre, Edad, Sexo, N);
+                        break;
+                case 8: Ordenar(Nombre, Edad, Sexo, N);
+                        break;
+                case 9: //Terminar();
+            }
+        } while (opc!=9);
+    }
+    static int Menu () throws IOException
+    {   int opc;
+        do
+        {
+        System.out.println("Menú de opciones");
+        System.out.println("****************");
+        System.out.println("\n1. Leer N alumnos ");
+        System.out.println("2. Ingresar datos ");
+        System.out.println("3. Reportar datos");
+        System.out.println("4. Consultar");     
+        System.out.println("5. Modificar");                     
+        System.out.println("6. Eliminar");
+        System.out.println("7. Agregar");
+        System.out.println("8. Ordenar alf. desc.");
+        System.out.println("9. Terminar");
+        System.out.println("****************\n");
+        System.out.println("Ingrese una opción: ");
+        opc = Integer.parseInt(br.readLine());
+        }
+        while (opc<0 || opc>9);
+        return opc;
+    }
+    static int LeerNalumnos() throws IOException
+    {   int N;
+        do
+        {
+            System.out.println("Ingresa el valor de N");
+            N = Integer.parseInt(br.readLine());
+        } while (N<=0 || N>100);
+        return N;
+    }
+    static void Ingresardatos(String Nombre[], int Edad[], char Sexo[], int N) throws IOException
+    {   int i;
+        for (i=0; i<N; i++)
+        {
+            System.out.println("Ingresa el nombre del alumno ["+(i+1)+"]");
+            Nombre[i]= br.readLine().toUpperCase();
+            do 
+            {
+            System.out.println("Edad["+(i+1)+"]");
+            Edad[i]= Integer.parseInt(br.readLine());
+            } while (Edad[i]<0 || Edad[i]>150);
+            do 
+            {
+            System.out.println("Sexo["+(i+1)+"] [M]asculino/[F]emenino ");
+            Sexo[i]= br.readLine().toUpperCase().charAt(0);
+            } while (Sexo[i]=='M' && Sexo[i]=='F');
+        }
+    }
+    static void Reportardatos(String Nombre[], int Edad[], char Sexo[], int N)
+    {   int i;
+        System.out.println("Reporte de todos los alumnos");
+        for (i=0; i<N; i++)
+        {   System.out.println((i+1)+" Nombre: "+Nombre[i]+ "\t Edad: "+Edad[i]+" \t Sexo: "+Sexo[i]);
+        }
+    }
+    static void Consultar(String Nombre[], int Edad[], char Sexo[], int N) throws IOException
+    {   int i, can=0;
+        String nomaux;
+        System.out.println("Consultar datos");
+        System.out.println("***************");
+        System.out.println("Ingresa el nombre a consultar");
+        nomaux = br.readLine().toUpperCase();
+        for (i=0; i<N; i++)
+        {   if ( Nombre[i].compareTo(nomaux)==0)
+                {System.out.println((i+1)+" Nombre: "+Nombre[i]+ "\t Edad: "+Edad[i]+" \t Sexo: "+Sexo[i]);
+                can = can+1;}
+        }
+        if (can==0)
+        {
+            System.out.println("No se encontraron datos con ese nombre");
+        }
+    }
+    static int Agregar(String Nombre[], int Edad[], char Sexo[], int N) throws IOException
+    {   if (N<100)
+        {
+            System.out.println("Ingresa el nombre del alumno ["+(N+1)+"]");
+            Nombre[N]= br.readLine().toUpperCase();
+            do 
+            {
+            System.out.println("Edad["+(N+1)+"]");
+            Edad[N]= Integer.parseInt(br.readLine());
+            } while (Edad[N]<0 || Edad[N]>150);
+            do 
+            {
+            System.out.println("Sexo["+(N+1)+"] [M]asculino/[F]emenino ");
+            Sexo[N]= br.readLine().toUpperCase().charAt(0);
+            } while (Sexo[N]=='M' && Sexo[N]=='F');
+            N = N+1;
+        }
+        return N;
+    }
+    static void Ordenar(String Nombre[], int Edad[], char Sexo[], int N) throws IOException
+    {   int i, j, edadaux;
+        char sexoaux;
+        String nomaux;
+        for (i=0;i<N;i++)
+        {   for (j=i+1;j<N;j++)
+            {
+            if (Nombre[i].compareTo(Nombre[j])<0)
+            {   nomaux = Nombre[i];
+                Nombre[i] = Nombre[j];
+                Nombre[j] = nomaux;
+                edadaux = Edad[i];
+                Edad[i] = Edad[j];
+                Edad[j] = edadaux;
+                sexoaux = Sexo[i];
+                Sexo[i] = Sexo[j];
+                Sexo[j] = sexoaux;
+            }
+            }
+        }
+        
+    }
+}
